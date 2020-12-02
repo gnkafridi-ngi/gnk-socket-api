@@ -59,6 +59,11 @@ const express = require('express');
 const app = express();
 var cors = require('cors');
 app.use(cors());
+app.use(function(request, response, next) {
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 const https = require('https');
 const server = https.createServer(app);
 const socket = require('socket.io');
