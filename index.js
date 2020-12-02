@@ -58,26 +58,35 @@
 const express = require('express');
 const app = express();
 var cors = require('cors');
-app.use(cors('*'));
+
+// app.use(cors('*'));
 // app.use(function(request, response, next) {
 //     response.header("Access-Control-Allow-Origin", "*");
 //     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 //   });
-const https = require('https');
-const server = https.createServer(app);
+const http = require('http');
+const server = http.createServer(app);
 const socket = require('socket.io');
 var allowedOrigins = "*";
 //  const io = io(server, {
 //     origins: allowedOrigins,
 //     // path : ''
 // });
-const io = socket(server,  {
-    origins: allowedOrigins,
-    // path : path
-});
+const io = socket(server);
 const port = process.env.PORT || 8080;
-
+app.use(function (request, response, next) {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    
+    // Request methods you wish to allow
+    response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    
+    // Request headers you wish to allow
+    response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    
+    // Pass to next layer of middleware
+    next();
+    });
 // var allowedOrigins = "http://localhost:*";
 //  io = io(server, {
     // origins: allowedOrigins,
