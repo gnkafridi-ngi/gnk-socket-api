@@ -62,6 +62,8 @@ const server = https.createServer(app);
 const socket = require('socket.io');
 const io = socket(server);
 const port = process.env.PORT || 8080;
+var cors = require('cors');
+app.use(cors());
 
 io.on('connection', onConnection); 
 
