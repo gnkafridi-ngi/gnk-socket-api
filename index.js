@@ -57,13 +57,19 @@
 
 const express = require('express');
 const app = express();
+var cors = require('cors');
+app.use(cors());
 const https = require('https');
 const server = https.createServer(app);
 const socket = require('socket.io');
 const io = socket(server);
 const port = process.env.PORT || 8080;
-var cors = require('cors');
-app.use(cors());
+
+// const io = require('socket.io')(server, {
+//     cors: {
+//       origin: '*',
+//     }
+// });
 
 io.on('connection', onConnection); 
 
