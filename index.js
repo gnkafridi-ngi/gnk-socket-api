@@ -103,7 +103,27 @@ app.use(function (request, response, next) {
 io.on('connection', onConnection); 
 
 function onConnection(socket){
-socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+
+    // socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+
+    // CREATE ROOM
+    socket.on('create-room', function(data) {
+        console.log('create-room: '+ data.room);
+        socket.join(data.room);
+    });
+
+    // PUBLISH DATA
+    // socket.on('drawing', function(data){
+    //     console.log('data-published: ', data.room, data);
+    //     socket.to(data.room).emit('data: ', data);
+    // });
+    socket.on('drawing', (data) => socket.to(data.room).broadcast.emit('drawing', data));
+
+    // DESTROY ROOM
+    socket.on('disconnect-room', () => {
+        console.log('user disconnected');
+    });
+
 }
 
 
