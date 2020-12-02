@@ -58,22 +58,27 @@
 const express = require('express');
 const app = express();
 var cors = require('cors');
-app.use(cors());
-app.use(function(request, response, next) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+app.use(cors('*'));
+// app.use(function(request, response, next) {
+//     response.header("Access-Control-Allow-Origin", "*");
+//     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
 const https = require('https');
 const server = https.createServer(app);
 const socket = require('socket.io');
+var allowedOrigins = "*";
+//  const io = io(server, {
+//     origins: allowedOrigins,
+//     // path : ''
+// });
 const io = socket(server,  {
     origins: allowedOrigins,
     // path : path
 });
 const port = process.env.PORT || 8080;
 
-var allowedOrigins = "http://localhost:*";
+// var allowedOrigins = "http://localhost:*";
 //  io = io(server, {
     // origins: allowedOrigins,
     // path : path
