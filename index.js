@@ -118,6 +118,7 @@ function onConnection(socket){
     //     socket.to(data.room).emit('data: ', data);
     // });
     socket.on('drawing', (data) => socket.to(data.room).broadcast.emit('drawing', data));
+    socket.on('insession-emit', (data) => socket.broadcast.emit('insession-emit', data));
 
     // DESTROY ROOM
     socket.on('disconnect-room', () => {
