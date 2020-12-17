@@ -73,7 +73,11 @@ var allowedOrigins = "*";
 //     origins: allowedOrigins,
 //     // path : ''
 // });
-const io = socket(server);
+const options = {
+    cors: true,
+    origins: ["*"],
+    };
+const io = socket(server, options);
 const port = process.env.PORT || 8080;
 app.use(function (request, response, next) {
     response.setHeader('Access-Control-Allow-Origin', '*');
