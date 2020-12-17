@@ -113,6 +113,7 @@ function onConnection(socket){
     socket.on('create-room', function(data) {
         console.log('create-room: '+ data.room);
         socket.join(data.room);
+        socket.emit("joined")
     });
 
     activityLibrarySocket(socket)
