@@ -58,7 +58,7 @@
 const express = require('express');
 const app = express();
 var cors = require('cors');
-
+const activityLibrarySocket = require("./activity_library");
 // app.use(cors('*'));
 // app.use(function(request, response, next) {
 //     response.header("Access-Control-Allow-Origin", "*");
@@ -107,7 +107,6 @@ app.use(function (request, response, next) {
 io.on('connection', onConnection); 
 
 function onConnection(socket){
-
     // socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
 
     // CREATE ROOM
@@ -115,6 +114,9 @@ function onConnection(socket){
         console.log('create-room: '+ data.room);
         socket.join(data.room);
     });
+
+    activityLibrarySocket(socket)
+
 
     // PUBLISH DATA
     // socket.on('drawing', function(data){
