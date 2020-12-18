@@ -20,6 +20,13 @@ const activityLibrarySocket = socket => {
     socket.on('started', (data) => {
         socket.to(data.room).broadcast.emit('start', data);
     });
+
+    socket.on('submit', (data) => {
+        socket.broadcast.to(data.room).emit('submit', data);
+      });
+      socket.on('reset', (data) => {
+        socket.broadcast.to(data.room).emit('reset', data);
+      });
 }
 
 module.exports = activityLibrarySocket;

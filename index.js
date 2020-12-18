@@ -110,12 +110,11 @@ function onConnection(socket){
     // socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
 
     // CREATE ROOM
-    // socket.on('create-room', function(data) {
-    //     console.log('create-room: '+ data.room);
-    //     socket.join(data.room);
-    //     socket.emit("joined")
-    // });
-    socket.on('create-room', (data) => socket.to(data.room).broadcast.emit('joined', data));
+    socket.on('create-room', function(data) {
+        console.log('create-room: '+ data.room);
+        socket.join(data.room);
+        socket.emit("joined")
+    });
 
     activityLibrarySocket(socket)
 
