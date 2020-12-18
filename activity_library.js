@@ -27,6 +27,10 @@ const activityLibrarySocket = socket => {
       socket.on('reset', (data) => {
         socket.broadcast.to(data.room).emit('reset', data);
       });
+
+      socket.on('change-game', (data) => {
+        socket.broadcast.to(data.room).emit('change-game', data);
+        });
 }
 
 module.exports = activityLibrarySocket;
